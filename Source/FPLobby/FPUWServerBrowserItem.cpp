@@ -60,8 +60,8 @@ void UFPUWServerBrowserItem::OnJoinSessionComplete(FName SessionName, EOnJoinSes
 
 			if (Result == EOnJoinSessionCompleteResult::Success)
 			{
-				auto PlayerController =UGameplayStatics::GetPlayerController(GetWorld(), 0);
-				
+				APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+
 				// Client travel to the server
 				FString ConnectString;
 				if (PlayerController && Sessions->GetResolvedConnectString(NAME_GameSession, ConnectString))

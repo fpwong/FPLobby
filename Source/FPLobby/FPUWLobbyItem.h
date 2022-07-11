@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "FPUWLobbyItem.generated.h"
 
+class UCommonTextBlock;
+
 /**
  * 
  */
@@ -13,4 +15,10 @@ UCLASS()
 class FPLOBBY_API UFPUWLobbyItem : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+	void SetPlayerState(TObjectPtr<APlayerState> InPlayerState);
+
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	UCommonTextBlock* PlayerNameLabel;
 };
