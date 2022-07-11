@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonButtonBase.h"
 #include "Blueprint/UserWidget.h"
 #include "FPUWLobbyItem.generated.h"
 
@@ -23,7 +24,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UCommonTextBlock* PlayerNameLabel;
 
-
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+	UCommonButtonBase* KickButton;
 
 	virtual void NativeOnInitialized() override;
 
@@ -31,4 +33,5 @@ public:
 
 	void HandlePlayerNameChanged(const FString& PlayerName);
 
+	void HandlePlayerKicked();
 };

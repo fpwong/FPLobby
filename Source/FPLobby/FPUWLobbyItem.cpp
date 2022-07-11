@@ -6,6 +6,40 @@
 #include "GameFramework/GameSession.h"
 #include "GameFramework/PlayerState.h"
 
+void UFPUWLobbyItem::HandlePlayerKicked()
+{
+	if (AGameModeBase* GameMode = GetWorld()->GetAuthGameMode())
+	{
+		if (GameMode->GameSession)
+		{
+			GameMode->GameSession->KickPlayer(PlayerState->GetPlayerController(), FText::FromString("Kicked from lobby"));
+		}
+	}
+}
+
+void UFPUWLobbyItem::NativeOnInitialized()
+{
+	Super::NativeOnInitialized();
+
+	check(KickButton);
+
+	ESlateVisibility KickVisibility = ESlateVisibility::Collapsed;
+
+	if (APlayerController* Owner = GetOwningPlayer())
+	{
+		if (Owner->GetLocalRole() == ROLE_Authority)
+		{
+			if (PlayerState != GetWorld()->GetFirstPlayerController()->PlayerState)
+			{
+				KickVisibility = ESlateVisibility::Visible;
+				KickButton->OnClicked().AddUObject(this, &UFPUWLobbyItem::HandlePlayerKicked);
+			}
+		}
+	}
+
+	KickButton->SetVisibility(KickVisibility);
+}
+
 void UFPUWLobbyItem::SetPlayerState(TObjectPtr<APlayerState> InPlayerState)
 {
 	PlayerState = InPlayerState;
