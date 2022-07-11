@@ -22,22 +22,6 @@ void UFPUWLobbyItem::NativeOnInitialized()
 	Super::NativeOnInitialized();
 
 	check(KickButton);
-
-	ESlateVisibility KickVisibility = ESlateVisibility::Collapsed;
-
-	if (APlayerController* Owner = GetOwningPlayer())
-	{
-		if (Owner->GetLocalRole() == ROLE_Authority)
-		{
-			if (PlayerState != GetWorld()->GetFirstPlayerController()->PlayerState)
-			{
-				KickVisibility = ESlateVisibility::Visible;
-				KickButton->OnClicked().AddUObject(this, &UFPUWLobbyItem::HandlePlayerKicked);
-			}
-		}
-	}
-
-	KickButton->SetVisibility(KickVisibility);
 }
 
 void UFPUWLobbyItem::SetPlayerState(TObjectPtr<APlayerState> InPlayerState)
@@ -55,6 +39,23 @@ void UFPUWLobbyItem::SetPlayerState(TObjectPtr<APlayerState> InPlayerState)
 
 		PlayerNameLabel->SetText(FText::FromString(PlayerName.IsEmpty() ? "Unnamed" : PlayerName));
 	}
+
+	// set kick button visibility
+	ESlateVisibility KickVisibility = ESlateVisibility::Collapsed;
+
+	if (APlayerController* Owner = GetOwningPlayer())
+	{
+		if (Owner->GetLocalRole() == ROLE_Authority)
+		{
+			if (PlayerState != GetWorld()->GetFirstPlayerController()->PlayerState)
+			{
+				KickVisibility = ESlateVisibility::Visible;
+				KickButton->OnClicked().AddUObject(this, &UFPUWLobbyItem::HandlePlayerKicked);
+			}
+		}
+	}
+
+	KickButton->SetVisibility(KickVisibility);
 }
 
 void UFPUWLobbyItem::HandlePlayerNameChanged(const FString& PlayerName)
