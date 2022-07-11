@@ -27,5 +27,10 @@ void AFPLobbyGameState::AddPlayerState(APlayerState* PlayerState)
 void AFPLobbyGameState::RemovePlayerState(APlayerState* PlayerState)
 {
 	Super::RemovePlayerState(PlayerState);
-	OnRemovePlayerState.Broadcast(PlayerState);
+
+	// Maybe we want to use this somewhere but not now
+	if (!GetWorld()->bIsTearingDown)
+	{
+		OnRemovePlayerState.Broadcast(PlayerState);
+	}
 }
