@@ -17,8 +17,18 @@ class FPLOBBY_API UFPUWLobbyItem : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	void SetPlayerState(TObjectPtr<APlayerState> InPlayerState);
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<APlayerState> PlayerState;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UCommonTextBlock* PlayerNameLabel;
+
+
+
+	virtual void NativeOnInitialized() override;
+
+	void SetPlayerState(TObjectPtr<APlayerState> InPlayerState);
+
+	void HandlePlayerNameChanged(const FString& PlayerName);
+
 };
