@@ -2,6 +2,7 @@
 
 #include "FPUWLobby.h"
 
+#include "CommonButtonBase.h"
 #include "FPLobbyGameState.h"
 #include "FPLobbyPlayerController.h"
 #include "FPUWLobbyItem.h"
@@ -36,6 +37,23 @@ void UFPUWLobby::NativeConstruct()
 	{
 		LobbyGameState->OnAddPlayerState.AddUObject(this, &UFPUWLobby::HandleAddOrRemovePlayerState);
 		LobbyGameState->OnRemovePlayerState.AddUObject(this, &UFPUWLobby::HandleAddOrRemovePlayerState);
+	}
+
+	if (APlayerController* Owner = GetOwningPlayer())
+	{
+		if (Owner->GetLocalRole() == ROLE_Authority)
+		{
+			ReadyOrStartButton->ButtonLabel->SetText(FText::FromString("Start"));
+		}
+		else
+		{
+			ReadyOrStartButton->ButtonLabel->SetText(FText::FromString("Ready"));
+		}
+	}
+
+	if (ReadyOrStartButton)
+	{
+		ReadyOrStartButton->OnClicked().AddUObject(this, &UFPUWLobby::HandleReadyOrStartButtonClicked);
 	}
 }
 
@@ -79,4 +97,24 @@ void UFPUWLobby::RefreshPlayers()
 void UFPUWLobby::HandleAddOrRemovePlayerState(APlayerState* PlayerState)
 {
 	RefreshPlayers();
+}
+
+void UFPUWLobby::HandleReadyOrStartButtonClicked()
+{
+	if (APlayerController* Owner = GetOwningPlayer())
+	{
+		if (Owner->GetLocalRole() == ROLE_Authority)
+		{
+			// UGameplayStatics::OpenLevel(GetWorld(), FName(*GameMapName));
+			GetWorld()->ServerTravel(GameMapName);
+		}
+		else
+		{
+			// TODO: ready up logic
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("owner invalid"));
+	}
 }

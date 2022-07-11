@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "CommonButtonBase.h"
+#include "Widgets/FPCUWCommonButton.h"
 #include "FPUWLobby.generated.h"
 
 class UCommonButtonBase;
@@ -32,5 +34,10 @@ public:
 	UPanelWidget* LobbyPanel;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
-	UCommonButtonBase* ReadyOrStartButton;
+	UFPCUWCommonButton* ReadyOrStartButton;
+
+	UPROPERTY(EditDefaultsOnly)
+	FString GameMapName = "GameMap";
+
+	void HandleReadyOrStartButtonClicked();
 };
