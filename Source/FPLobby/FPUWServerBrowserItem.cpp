@@ -14,7 +14,18 @@ void UFPUWServerBrowserItem::InitSessionResult(const FOnlineSessionSearchResult&
 {
 	SearchResult = InSearchResult;
 
-	LobbyNameLabel->SetText(FText::FromString(SearchResult.Session.OwningUserName));
+	// Set lobby name to server name setting, otherwise use the owner's name
+	if (auto ServerNameSetting = SearchResult.Session.SessionSettings.Settings.Find(FName("SERVER_NAME")))
+	{
+		FString ServerName;
+		ServerNameSetting->Data.GetValue(ServerName);
+
+		LobbyNameLabel->SetText(FText::FromString(ServerName));
+	}
+	else
+	{
+		LobbyNameLabel->SetText(FText::FromString(SearchResult.Session.OwningUserName));
+	}
 
 	int32 MaxPlayers = SearchResult.Session.SessionSettings.NumPublicConnections;
 	int32 CurrentPlayers = MaxPlayers - SearchResult.Session.NumOpenPublicConnections;
