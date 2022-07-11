@@ -14,4 +14,6 @@ class FPLOBBY_API AFPLobbyGameMode : public AGameModeBase
 public:
 	// Sets default values for this actor's properties
 	AFPLobbyGameMode();
+
+	virtual void StartToLeaveMap() override;
 };

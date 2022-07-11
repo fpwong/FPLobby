@@ -4,6 +4,7 @@
 
 #include "FPLobbyGameState.h"
 #include "FPLobbyPlayerController.h"
+#include "FPLobbyPlayerState.h"
 
 // Sets default values
 AFPLobbyGameMode::AFPLobbyGameMode()
@@ -12,4 +13,18 @@ AFPLobbyGameMode::AFPLobbyGameMode()
 	PrimaryActorTick.bCanEverTick = true;
 	PlayerControllerClass = AFPLobbyPlayerController::StaticClass();
 	GameStateClass = AFPLobbyGameState::StaticClass();
+	PlayerStateClass = AFPLobbyPlayerState::StaticClass();
+}
+
+void AFPLobbyGameMode::StartToLeaveMap()
+{
+	Super::StartToLeaveMap();
+
+	for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+	{
+		if (AFPLobbyPlayerController* PC = Cast<AFPLobbyPlayerController>(Iterator->Get()))
+		{
+			PC->DisplayLoadingScreen();
+		}
+	}
 }
