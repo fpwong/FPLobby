@@ -33,6 +33,10 @@
 		{
 			"Name": "AdvancedSteamSessions",
 			"Enabled": true
+		},
+		{
+			"Name": "FPCommon",
+			"Enabled": true
 		}
 	]
 }
