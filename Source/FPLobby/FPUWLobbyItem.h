@@ -33,5 +33,6 @@ public:
 
 	void HandlePlayerNameChanged(const FString& PlayerName);
 
+	UFUNCTION()
 	void HandlePlayerKicked();
 };

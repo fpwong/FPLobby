@@ -4,12 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "CommonButtonBase.h"
 #include "OnlineSubsystemUtils.h"
 #include "FPUWServerBrowser.generated.h"
 
 class UCircularThrobber;
-class UFPCUWCommonButton;
+class UCommonButtonBase;
 class UScrollBox;
 class UCommonListView;
 class FOnlineSessionSearch;
@@ -47,7 +46,7 @@ protected:
 	UCommonListView* LobbyList;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
-	UFPCUWCommonButton* RefreshButton;
+	UCommonButtonBase* RefreshButton;
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UCircularThrobber* RefreshThrobber;
