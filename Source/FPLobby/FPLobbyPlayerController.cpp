@@ -2,6 +2,7 @@
 
 #include "FPLobbyPlayerController.h"
 
+#include "FPLobbySettings.h"
 #include "Blueprint/UserWidget.h"
 
 // Sets default values
@@ -27,7 +28,7 @@ void AFPLobbyPlayerController::Tick(float DeltaTime)
 
 void AFPLobbyPlayerController::DisplayLoadingScreen_Implementation()
 {
-	if (LoadingScreenClass)
+	if (UClass* LoadingScreenClass = GetDefault<UFPLobbySettings>()->LoadingScreenWidget.TryLoadClass<UUserWidget>())
 	{
 		if (UUserWidget* LoadingScreen = CreateWidget<UUserWidget>(this, LoadingScreenClass))
 		{

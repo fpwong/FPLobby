@@ -5,6 +5,7 @@
 #include "CommonButtonBase.h"
 #include "FPLobbyGameState.h"
 #include "FPLobbyPlayerController.h"
+#include "FPLobbySettings.h"
 #include "FPUWLobbyItem.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/PanelWidget.h"
@@ -105,8 +106,7 @@ void UFPUWLobby::HandleReadyOrStartButtonClicked()
 	{
 		if (Owner->GetLocalRole() == ROLE_Authority)
 		{
-			// UGameplayStatics::OpenLevel(GetWorld(), FName(*GameMapName));
-			GetWorld()->ServerTravel(GameMapName);
+			GetWorld()->ServerTravel(GetDefault<UFPLobbySettings>()->GameMapName);
 		}
 		else
 		{

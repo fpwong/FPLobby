@@ -23,7 +23,6 @@ public:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UEditableText* ServerNameField;
 
-
 	FDelegateHandle CreateCompleteDelegateHandle;
 	FDelegateHandle StartCompleteDelegateHandle;
 
@@ -38,7 +37,4 @@ public:
 
 	UFUNCTION()
 	void OnStartSessionCompleted(FName SessionName, bool bWasSuccessful);
-
-	UPROPERTY(EditDefaultsOnly)
-	FName LobbyMapName = "LobbyMap";
 };

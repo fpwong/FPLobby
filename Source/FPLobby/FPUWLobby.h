@@ -36,8 +36,6 @@ public:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UFPCUWCommonButton* ReadyOrStartButton;
 
-	UPROPERTY(EditDefaultsOnly)
-	FString GameMapName = "GameMap";
-
+	UFUNCTION()
 	void HandleReadyOrStartButtonClicked();
 };

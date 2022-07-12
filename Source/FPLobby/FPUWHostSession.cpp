@@ -3,6 +3,7 @@
 #include "FPUWHostSession.h"
 
 #include "CommonButtonBase.h"
+#include "FPLobbySettings.h"
 #include "Online.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
@@ -100,7 +101,7 @@ void UFPUWHostSession::OnStartSessionCompleted(FName SessionName, bool bWasSucce
 		{
 			Sessions->ClearOnStartSessionCompleteDelegate_Handle(StartCompleteDelegateHandle);
 
-			UGameplayStatics::OpenLevel(GetWorld(), LobbyMapName, true, FString("listen"));
+			UGameplayStatics::OpenLevel(GetWorld(), GetDefault<UFPLobbySettings>()->LobbyMapName, true, FString("listen"));
 		}
 	}
 }

@@ -20,9 +20,6 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<UUserWidget> LoadingScreenClass;
-
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

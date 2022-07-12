@@ -47,7 +47,8 @@ public class FPLobby : ModuleRules
 				"OnlineSubsystem",
 				"OnlineSubsystemSteam",
 				"OnlineSubsystemUtils",
-				"FPCommon"
+				"FPCommon",
+				"DeveloperSettings"
 			}
 			);
 		
