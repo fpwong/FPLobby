@@ -28,7 +28,7 @@ void UFPUWHostSession::NativeConstruct()
 
 void UFPUWHostSession::HandleHostButtonClicked()
 {
-	UKismetSystemLibrary::PrintString(GetWorld(), "Host button clicked?");
+	UKismetSystemLibrary::PrintString(GetWorld(), "Trying to host");
 	if (IOnlineSubsystem* OnlineSubsystem = Online::GetSubsystem(GetWorld()))
 	{
 		IOnlineSessionPtr Sessions = OnlineSubsystem->GetSessionInterface();
@@ -46,17 +46,24 @@ void UFPUWHostSession::HandleHostButtonClicked()
 				SessionSettings.bAllowJoinInProgress = true;
 				SessionSettings.bIsLANMatch = false;
 				SessionSettings.bAllowInvites = true;
+				SessionSettings.bIsDedicated = false;
 				SessionSettings.bUsesPresence = true;
 				SessionSettings.bAllowJoinViaPresence = true;
+				SessionSettings.bUseLobbiesIfAvailable = true;
 
 				FOnlineSessionSetting ServerNameSetting;
 				ServerNameSetting.AdvertisementType = EOnlineDataAdvertisementType::ViaOnlineService;
 				ServerNameSetting.Data = ServerNameField->GetText().ToString();
 				SessionSettings.Settings.Add(FName("SERVER_NAME"), ServerNameSetting);
 
-				Sessions->CreateSession(*PlayerNetId, NAME_GameSession, SessionSettings);
-				// UE_LOG(LogTemp, Warning, TEXT("Create session?"));
-				UKismetSystemLibrary::PrintString(GetWorld(), "Create session");
+				if (Sessions->CreateSession(*PlayerNetId, NAME_GameSession, SessionSettings))
+				{
+					UKismetSystemLibrary::PrintString(GetWorld(), "\tCreated session");
+				}
+				else
+				{
+					UKismetSystemLibrary::PrintString(GetWorld(), "\tFailed to create session");
+				}
 			}
 		}
 	}

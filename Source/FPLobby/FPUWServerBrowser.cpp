@@ -8,6 +8,8 @@
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
 #include "Components/CircularThrobber.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Widgets/FPCUWCommonButton.h"
 
 void UFPUWServerBrowser::NativeConstruct()
@@ -50,14 +52,28 @@ bool UFPUWServerBrowser::Initialize()
 
 void UFPUWServerBrowser::RefreshLobbyList()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Refresh lobby list"));
+	UKismetSystemLibrary::PrintString(GetWorld(), "Refreshing lobby list");
+
 	if (!LobbyList)
 		return;
 
 	if (!BrowserItemTemplate)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Browesr item template invalid"));
+		UKismetSystemLibrary::PrintString(GetWorld(), "Browser item template invalid");
+		// UE_LOG(LogTemp, Warning, TEXT("Browesr item template invalid"));
 		return;
+	}
+
+	APlayerState* PlayerState = UGameplayStatics::GetPlayerState(GetWorld(), 0);
+	if (!PlayerState)
+	{
+		UKismetSystemLibrary::PrintString(GetWorld(), "Player state invalid");
+	}
+
+	FUniqueNetIdPtr UniqueNetId = PlayerState->GetUniqueId().GetUniqueNetId();
+	if (!UniqueNetId.IsValid())
+	{
+		UKismetSystemLibrary::PrintString(GetWorld(), "Unique net id invalid");
 	}
 
 	LobbyList->SetListItems(TArray<UFPSearchResultObject*>());
@@ -72,13 +88,20 @@ void UFPUWServerBrowser::RefreshLobbyList()
 			SearchObject = MakeShareable(new FOnlineSessionSearch);
 			SearchObject->MaxSearchResults = 64;
 			SearchObject->bIsLanQuery = false;
-			Sessions->FindSessions(0, SearchObject.ToSharedRef());
+
+			FOnlineSearchSettings Settings;
+			Settings.Set(SEARCH_LOBBIES, true, EOnlineComparisonOp::Equals);
+			Settings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
+
+			SearchObject->QuerySettings = Settings;
+
+			Sessions->FindSessions(*UniqueNetId.Get(), SearchObject.ToSharedRef());
 
 			// Show throbber
 			RefreshThrobber->SetVisibility(ESlateVisibility::HitTestInvisible);
 			RefreshButton->SetIsEnabled(false);
 
-			UE_LOG(LogTemp, Warning, TEXT("Finding sessions..."));
+			UKismetSystemLibrary::PrintString(GetWorld(), "\tFinding session");
 		}
 	}
 }
