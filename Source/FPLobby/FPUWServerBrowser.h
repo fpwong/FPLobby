@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "OnlineSessionSettings.h"
 #include "Blueprint/UserWidget.h"
-#include "OnlineSubsystemUtils.h"
 #include "FPUWServerBrowser.generated.h"
 
 class UCircularThrobber;
@@ -18,6 +18,7 @@ UCLASS()
 class FPLOBBY_API UFPSearchResultObject : public UObject
 {
 	GENERATED_BODY()
+
 public:
 	FOnlineSessionSearchResult SearchResult;
 };

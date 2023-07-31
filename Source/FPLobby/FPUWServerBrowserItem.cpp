@@ -9,6 +9,7 @@
 #include "OnlineSubsystem.h"
 #include "Online.h"
 #include "OnlineSubsystemUtils.h"
+#include "GameFramework/PlayerState.h"
 
 void UFPUWServerBrowserItem::InitSessionResult(const FOnlineSessionSearchResult& InSearchResult)
 {

@@ -5,10 +5,12 @@
 #include "CommonButtonBase.h"
 #include "FPLobbySettings.h"
 #include "Online.h"
+#include "OnlineSessionSettings.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/EditableText.h"
+#include "GameFramework/PlayerState.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Kismet/GameplayStatics.h"
 

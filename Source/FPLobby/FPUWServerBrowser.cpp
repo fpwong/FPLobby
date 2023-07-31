@@ -8,8 +8,10 @@
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
 #include "Components/CircularThrobber.h"
+#include "GameFramework/PlayerState.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Online/OnlineSessionNames.h"
 #include "Widgets/FPCUWCommonButton.h"
 
 void UFPUWServerBrowser::NativeConstruct()

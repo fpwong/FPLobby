@@ -42,8 +42,6 @@ public class FPLobby : ModuleRules
 				// ... add private dependencies that you statically link with here ...	
 				"UMG",
 				"CommonUI", 
-				"AdvancedSessions",
-				"AdvancedSteamSessions",
 				"OnlineSubsystem",
 				"OnlineSubsystemSteam",
 				"OnlineSubsystemUtils",
