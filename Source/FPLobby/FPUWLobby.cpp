@@ -74,22 +74,20 @@ void UFPUWLobby::RefreshPlayers()
 
 	LobbyPanel->ClearChildren();
 
+	if (!LobbyItemType)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("FPUWLobby: Forgot to set lobby item type"));
+		return;
+	}
+
 	if (AGameStateBase* GameState = UGameplayStatics::GetGameState(GetWorld()))
 	{
 		for (TObjectPtr<APlayerState> PlayerState : GameState->PlayerArray)
 		{
-			// CreateWidget<>();
-			// ;
-			// if (UFPUWLobbyItem* LobbyItem = NewObject<UFPUWLobbyItem>(LobbyItemType))
 			if (UFPUWLobbyItem* LobbyItem = WidgetTree->ConstructWidget<UFPUWLobbyItem>(LobbyItemType))
 			{
 				LobbyItem->SetPlayerState(PlayerState);
 				LobbyPanel->AddChild(LobbyItem);
-				UE_LOG(LogTemp, Warning, TEXT("Added item!"));
-			}
-			else
-			{
-				UE_LOG(LogTemp, Warning, TEXT("LobbyItemTemplate invalid"));
 			}
 		}
 	}

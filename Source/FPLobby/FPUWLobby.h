@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonActivatableWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "CommonButtonBase.h"
 #include "Widgets/FPCUWCommonButton.h"
@@ -12,7 +13,7 @@ class UCommonButtonBase;
 class UFPUWLobbyItem;
 
 UCLASS()
-class FPLOBBY_API UFPUWLobby : public UUserWidget
+class FPLOBBY_API UFPUWLobby : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 
