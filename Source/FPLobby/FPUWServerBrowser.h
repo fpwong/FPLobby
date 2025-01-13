@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonActivatableWidget.h"
 #include "OnlineSessionSettings.h"
 #include "Blueprint/UserWidget.h"
 #include "FPUWServerBrowser.generated.h"
@@ -24,17 +25,21 @@ public:
 };
 
 UCLASS()
-class FPLOBBY_API UFPUWServerBrowser : public UUserWidget
+class FPLOBBY_API UFPUWServerBrowser : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 
 public:
+	UFPUWServerBrowser();
+
 	//~ Begin UUserWidget interface
 	virtual void NativeConstruct() override;
 	virtual void NativeDestruct() override;
 	virtual void NativeOnInitialized() override;
 	virtual bool Initialize() override;
 	//~ End UUserWidget interface
+
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 
 	UFUNCTION()
 	void RefreshLobbyList();

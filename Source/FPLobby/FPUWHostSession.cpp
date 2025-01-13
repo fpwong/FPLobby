@@ -14,6 +14,12 @@
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Kismet/GameplayStatics.h"
 
+UFPUWHostSession::UFPUWHostSession()
+{
+	bAutoActivate = true;
+	bAutoRestoreFocus = true;
+}
+
 void UFPUWHostSession::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
@@ -26,6 +32,11 @@ void UFPUWHostSession::NativeConstruct()
 	Super::NativeConstruct();
 
 	// HostButton->OnClicked().AddUObject(this, &UFPUWHostSession::HandleHostButtonClicked);
+}
+
+UWidget* UFPUWHostSession::NativeGetDesiredFocusTarget() const
+{
+	return HostButton;
 }
 
 void UFPUWHostSession::HandleHostButtonClicked()

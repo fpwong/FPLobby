@@ -14,6 +14,12 @@
 #include "Online/OnlineSessionNames.h"
 #include "Widgets/FPCUWCommonButton.h"
 
+UFPUWServerBrowser::UFPUWServerBrowser()
+{
+	bAutoActivate = true;
+	bAutoRestoreFocus = true;
+}
+
 void UFPUWServerBrowser::NativeConstruct()
 {
 	Super::NativeConstruct();
@@ -45,11 +51,16 @@ bool UFPUWServerBrowser::Initialize()
 		}
 
 		RefreshThrobber->SetVisibility(ESlateVisibility::Hidden);
+
+		RefreshLobbyList();
 	}
 
-	// RefreshLobbyList();
-
 	return true;
+}
+
+UWidget* UFPUWServerBrowser::NativeGetDesiredFocusTarget() const
+{
+	return RefreshButton;
 }
 
 void UFPUWServerBrowser::RefreshLobbyList()

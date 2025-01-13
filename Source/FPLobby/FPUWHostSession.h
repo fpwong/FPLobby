@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonActivatableWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "CommonButtonBase.h"
 #include "FPUWHostSession.generated.h"
@@ -12,11 +13,13 @@ class UCommonButtonBase;
 class UFPUWHostSessionItem;
 
 UCLASS()
-class FPLOBBY_API UFPUWHostSession : public UUserWidget
+class FPLOBBY_API UFPUWHostSession : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 
 public:
+	UFPUWHostSession();
+
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 	UCommonButtonBase* HostButton;
 
@@ -28,6 +31,7 @@ public:
 
 	virtual void NativeOnInitialized() override;
 	virtual void NativeConstruct() override;
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 
 	UFUNCTION()
 	void HandleHostButtonClicked();
